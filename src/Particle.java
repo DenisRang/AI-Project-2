@@ -25,6 +25,7 @@ public class Particle {
         double inertia=(i*0.07<0.5)?0.9-i*0.07:0.4;
         velocity=inertia*velocity + Swarm.c1*Math.random()*(localBestPos-currentPos)
 
+
     }
 
 }
