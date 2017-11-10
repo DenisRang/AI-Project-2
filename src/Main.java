@@ -9,33 +9,33 @@ public class Main {
 
         ChordProgression cp = new ChordProgression("I IV V");
         Note notess[] = new Note[3];
-        notess[0]= new Note(74);
+        notess[0]= new Note(15);
         notess[1] = new Note(77);
         notess[2] = new Note(81);
-        Chord chordd = Chord.fromNotes(notess);
-        player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);
-        System.out.println(chordd.isMinor());
+      //  Chord chordd = Chord.fromNotes(notess);
+        //player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);player.play(chordd);
+        System.out.println(notess[0].getToneString());
 
-        Chord[] chords = cp.setKey("c5").getChords();
-        for (Chord chord : chords) {
-            System.out.print("Chord "+chordd+" has these notes: ");
-            Note[] notes = chord.getNotes();
-            for (Note note : notes) {
-                System.out.print(note.getValue()+" ");
-            }
-            System.out.println();
-        }
-        player.play(cp);
-
-        chords = cp.setKey("G5").getChords();
-        for (Chord chord : chords) {
-            System.out.print("Chord "+chord+" has these notes: ");
-            Note[] notes = chord.getNotes();
-            for (Note note : notes) {
-                System.out.print(note.getValue()+" ");
-            }
-            System.out.println();
-        }
-        player.play(cp);
+//        Chord[] chords = cp.setKey("c5").getChords();
+//        for (Chord chord : chords) {
+//            System.out.print("Chord "+chordd+" has these notes: ");
+//            Note[] notes = chord.getNotes();
+//            for (Note note : notes) {
+//                System.out.print(note.getValue()+" ");
+//            }
+//            System.out.println();
+//        }
+//        player.play(cp);
+//
+//        chords = cp.setKey("G5").getChords();
+//        for (Chord chord : chords) {
+//            System.out.print("Chord "+chord+" has these notes: ");
+//            Note[] notes = chord.getNotes();
+//            for (Note note : notes) {
+//                System.out.print(note.getValue()+" ");
+//            }
+//            System.out.println();
+//        }
+//        player.play(cp);
     }
 }
