@@ -1,3 +1,8 @@
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class MyChord {
     int[] notes = new int[3];
 
@@ -7,22 +12,19 @@ public class MyChord {
         notes[2] = note3;
     }
 
-    MyChord sum(MyChord b) {
-        for (int i = 0; i < 3; i++)
-            notes[i] += b.notes[i];
-        return this;
+    MyChord sum(MyChord b) throws CloneNotSupportedException {
+        MyChord temp=new MyChord(this.notes[0] + b.notes[0],this.notes[1] + b.notes[1],this.notes[2] + b.notes[2]);
+        return temp;
     }
 
-    MyChord dif(MyChord b) {
-        for (int i = 0; i < 3; i++)
-            notes[i] -= b.notes[i];
-        return this;
+    MyChord dif(MyChord b) throws CloneNotSupportedException {
+        MyChord temp=new MyChord(this.notes[0] - b.notes[0],this.notes[1] - b.notes[1],this.notes[2] - b.notes[2]);
+        return temp;
     }
 
-    MyChord mul(double d) {
-        for (int i = 0; i < 3; i++)
-            notes[i] = (int) (this.notes[i] * d);
-        return this;
+    MyChord mul(double d) throws CloneNotSupportedException {
+        MyChord temp=new MyChord((int) (this.notes[0] * d),(int) (this.notes[1] * d),(int) (this.notes[2] * d));
+        return temp;
     }
 
     public void setNote(int i, int note) {
@@ -36,4 +38,13 @@ public class MyChord {
     public int[] getNotes() {
         return notes;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < 3; i++)
+            s += notes[i] + ", ";
+        return s + ";  ";
+    }
+
 }

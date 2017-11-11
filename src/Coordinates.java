@@ -1,8 +1,13 @@
 import org.jfugue.theory.Chord;
 import org.jfugue.theory.Note;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class Coordinates {
-    final static int DIMENSION = 16;
+    final static int DIMENSION = 5;
     final static int minValues = 48;   //limits of
     final static int maxValues = 96;   //coordinates
     protected MyChord[] coordinates;
@@ -11,41 +16,54 @@ public class Coordinates {
         coordinates = new MyChord[DIMENSION];
     }
 
-    Coordinates sum(Coordinates b) {
+    Coordinates sum(Coordinates b) throws CloneNotSupportedException {
+        Coordinates temp=new Coordinates();
         for (int i = 0; i < DIMENSION; i++) {
-            this.coordinates[i].sum(b.coordinates[i]);
+            temp.coordinates[i]=this.coordinates[i].sum(b.coordinates[i]);
         }
-        return this;
+        return temp;
     }
 
-    Coordinates dif(Coordinates b) {
+    Coordinates dif(Coordinates b) throws CloneNotSupportedException {
+        Coordinates temp=new Coordinates();
         for (int i = 0; i < DIMENSION; i++)
-            this.coordinates[i].dif(b.coordinates[i]);
-        return this;
+            temp.coordinates[i]=this.coordinates[i].dif(b.coordinates[i]);
+        return temp;
     }
 
-    Coordinates mul(double d) {
+    Coordinates mul(double d) throws CloneNotSupportedException {
+        Coordinates temp=new Coordinates();
         for (int i = 0; i < DIMENSION; i++)
-            this.coordinates[i].mul(d);
-        return this;
+            temp.coordinates[i]=this.coordinates[i].mul(d);
+        return temp;
     }
 
-    void nextPosition(Coordinates velocity) {
-        sum(velocity);
+    void nextPosition(Coordinates velocity) throws CloneNotSupportedException {
+        for (int i = 0; i < DIMENSION; i++) {
+            this.coordinates[i]=this.coordinates[i].sum(velocity.coordinates[i]);
+        }
     }
 
     public MyChord[] getCoordinates() {
         return coordinates;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < DIMENSION; i++)
+            s += coordinates[i].toString() + "  |  ";
+        return s;
+    }
+
 }
 
 
 class Position extends Coordinates {
     Position() {
+        super();
         for (int i = 0; i < DIMENSION; i++) {
-            this.coordinates[i].setNote(0, randomNote());
-            this.coordinates[i].setNote(1, randomNote());
-            this.coordinates[i].setNote(2, randomNote());
+            coordinates[i] = new MyChord(randomNote(), randomNote(), randomNote());
         }
 
     }
@@ -53,19 +71,21 @@ class Position extends Coordinates {
     int randomNote() {
         return (int) (Math.random() * (maxValues - minValues)) + minValues;
     }
+
 }
 
 
 class Velocity extends Coordinates {
     Velocity() {
+        super();
         for (int i = 0; i < DIMENSION; i++) {
-            this.coordinates[i].setNote(0, randomNote());
-            this.coordinates[i].setNote(1, randomNote());
-            this.coordinates[i].setNote(2, randomNote());
+            coordinates[i] = new MyChord(randomNote(), randomNote(), randomNote());
         }
     }
 
     int randomNote() {
         return (int) (Math.random() * 2 * (maxValues - minValues)) - minValues;
     }
+
+
 }
