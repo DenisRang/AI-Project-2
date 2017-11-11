@@ -5,17 +5,30 @@ import org.jfugue.theory.Note;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException {
-        Swarm swarm=new Swarm(10000);
-        int i=0;
-        while (Swarm.f(Swarm.globalBestPos)!=0){
+        Swarm swarm = new Swarm(200000);
+        int i = 0;
+        while (Swarm.f(Swarm.globalBestPos) != 0) {
             swarm.nextIteration(++i);
             System.out.println(Swarm.globalBestPos);
             System.out.println(Swarm.f(Swarm.globalBestPos));
-           // Thread.sleep(1000);
+            // Thread.sleep(1000);
         }
+        System.out.println(Swarm.globalBestPos);
 
-
-
+        Chord[] chords = new Chord[Coordinates.DIMENSION];
+        Note[] notes;
+        for (i = 0; i < Coordinates.DIMENSION; i++) {
+            notes = new Note[3];
+            for (int j = 0; j < 3; j++) {
+                notes[j] = new Note(Swarm.globalBestPos.getCoordinates()[i].getNote(j));
+            }
+            chords[i] = Chord.fromNotes(notes);
+        }
+        Player player = new Player();
+        player.play(chords);
+        player.play(chords);
+        player.play(chords);
+        player.play(chords);
 
 
 

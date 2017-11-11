@@ -8,10 +8,11 @@ import java.util.Random;
 
 public class Swarm {
     final int size;   //amount of particles in the swarm
-    static double c1 = 2.5;      //coefficient of an influence of the local best position to velocity changing
-    static double c2 = 1.3;      //coefficient of an influence of the global best position to velocity changing
+    static double c1 = 1;      //coefficient of an influence of the local best position to velocity changing
+    static double c2 = 2;      //coefficient of an influence of the global best position to velocity changing
     static Position globalBestPos = null;
     Particle[] particles;
+    static int rightNote;
 
     public Swarm(int size) {
         this.size = size;
@@ -31,35 +32,45 @@ public class Swarm {
         if (pos == null) return 1000;
         //Notes: C, D, E, F, G, A, B
         int[] values = {0, 0, 0, 0, 0, 0, 0};    //in the end of end we will get fitness values of chord's starting note
-        int[] amounts = {0, 0, 0, 0, 0, 0, 0};    //amount of such chords which starts with that note
+        int[] amountsN = {0, 0, 0, 0, 0, 0, 0};    //amount of such chords which starts with that note
+        int[] amountsC = {0, 0, 0, 0, 0, 0, 0};    //amount of such chords which starts with that note
         int[] chords = {0, 0, 0, 0, 0, 0, 0};    //fitness values of note if it would be starting note of tonic chord
-        int i, min = 500;
+        int i, min = 500, f;
         for (MyChord myChord : pos.getCoordinates()) {
-            i = index(myChord);
-            if (i > -1) {
-                values[i] += fitnessFunctForChord(myChord);
-                amounts[i]++;
-            }
+            f = fitnessFunctForChord(myChord);
+            i = index(rightNote);
+            values[i] += f;
+            amountsN[i]++;
         }
-        for (i = 0; i < 7; i++) {
-            if (amounts[i] != 0) {
-                values[i] /= (amounts[i] * amounts[i]);
-            } else values[i] = 97;
-        }
+//        for (i = 0; i < 7; i++) {
+//            if (amounts[i] != 0) {
+//                values[i] /= (amounts[i] * amounts[i]);
+//            } else values[i] = 130;
+//        }
         for (i = 0; i < 7; i++) {
             chords[i] = values[i] + values[(i + 3) % 7] + values[(i + 4) % 7];
+            amountsC[i] = amountsN[i] + amountsN[(i + 3) % 7] + amountsN[(i + 4) % 7];
+            chords[i]+=70*(Coordinates.DIMENSION - amountsC[i]);
             if (min > chords[i]) min = chords[i];
         }
         return min;
     }
 
     static int fitnessFunctForChord(MyChord myChord) {
-        return Math.abs(myChord.getNote(1) - myChord.getNote(0) - 3) + Math.abs(myChord.getNote(2) - myChord.getNote(1) - 3);
+        int i = index(myChord.getNote(0));
+        rightNote = myChord.getNote(0);
+        while (i < 0) {
+            if (i == -1) rightNote -=1;
+            else rightNote+= 1;
+            i = index(rightNote);
+        }
+        return Math.abs(myChord.getNote(0)-rightNote) + Math.abs(myChord.getNote(1) - myChord.getNote(0) - 3) + Math.abs(myChord.getNote(2) - myChord.getNote(0) - 7);
     }
 
-    static int index(MyChord myChord) {
-        if (myChord.getNote(0) < Coordinates.minValues || myChord.getNote(0) > Coordinates.maxValues) return -2;
-        switch (new Note(myChord.getNote(0)).getToneString()) {
+    static int index(int note) {
+        if (note < Coordinates.minValues) return -2;
+        if (note > Coordinates.maxValues - 7) return -1;
+        switch (new Note(note).getToneString()) {
             case "C":
                 return 0;
             case "D":

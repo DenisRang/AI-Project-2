@@ -7,9 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Coordinates {
-    final static int DIMENSION = 5;
+    final static int DIMENSION = 8;
     final static int minValues = 48;   //limits of
-    final static int maxValues = 96;   //coordinates
+    final static int maxValues = 72;   //coordinates
     protected MyChord[] coordinates;
 
     public Coordinates() {
