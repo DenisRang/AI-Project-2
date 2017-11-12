@@ -1,13 +1,3 @@
-import javafx.geometry.Pos;
-import org.jfugue.player.Player;
-import org.jfugue.theory.Chord;
-import org.jfugue.theory.ChordProgression;
-import org.jfugue.theory.Note;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class Particle {
     Position currentPos;
@@ -45,16 +35,16 @@ public class Particle {
     public String toString() {
         return currentPos.toString();
     }
+
     public Position deepClone(Position object) {
-        Position clone=new Position();
-        for(int i=0;i<Coordinates.DIMENSION;i++){
-            for(int j=0;j<3;j++){
-                clone.getCoordinates()[i].setNote(j,object.getCoordinates()[i].getNote(j));
+        Position clone = new Position();
+        for (int i = 0; i < Coordinates.DIMENSION; i++) {
+            for (int j = 0; j < 3; j++) {
+                clone.getCoordinates()[i].setNote(j, object.getCoordinates()[i].getNote(j));
             }
         }
         return clone;
     }
-
 
 
 }

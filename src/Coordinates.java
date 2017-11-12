@@ -1,15 +1,8 @@
-import org.jfugue.theory.Chord;
-import org.jfugue.theory.Note;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class Coordinates {
-    final static int DIMENSION = 8;
+    final static int DIMENSION = 6;
     final static int minValues = 48;   //limits of
-    final static int maxValues = 96;   //coordinates
+    final static int maxValues = 72;   //coordinates
     protected MyChord[] coordinates;
 
     public Coordinates() {
@@ -17,30 +10,30 @@ public class Coordinates {
     }
 
     Coordinates sum(Coordinates b) throws CloneNotSupportedException {
-        Coordinates temp=new Coordinates();
+        Coordinates temp = new Coordinates();
         for (int i = 0; i < DIMENSION; i++) {
-            temp.coordinates[i]=this.coordinates[i].sum(b.coordinates[i]);
+            temp.coordinates[i] = this.coordinates[i].sum(b.coordinates[i]);
         }
         return temp;
     }
 
     Coordinates dif(Coordinates b) throws CloneNotSupportedException {
-        Coordinates temp=new Coordinates();
+        Coordinates temp = new Coordinates();
         for (int i = 0; i < DIMENSION; i++)
-            temp.coordinates[i]=this.coordinates[i].dif(b.coordinates[i]);
+            temp.coordinates[i] = this.coordinates[i].dif(b.coordinates[i]);
         return temp;
     }
 
     Coordinates mul(double d) throws CloneNotSupportedException {
-        Coordinates temp=new Coordinates();
+        Coordinates temp = new Coordinates();
         for (int i = 0; i < DIMENSION; i++)
-            temp.coordinates[i]=this.coordinates[i].mul(d);
+            temp.coordinates[i] = this.coordinates[i].mul(d);
         return temp;
     }
 
     void nextPosition(Coordinates velocity) throws CloneNotSupportedException {
         for (int i = 0; i < DIMENSION; i++) {
-            this.coordinates[i]=this.coordinates[i].sum(velocity.coordinates[i]);
+            this.coordinates[i] = this.coordinates[i].sum(velocity.coordinates[i]);
         }
     }
 

@@ -1,7 +1,3 @@
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class MyChord {
     int[] notes = new int[3];
@@ -13,17 +9,17 @@ public class MyChord {
     }
 
     MyChord sum(MyChord b) throws CloneNotSupportedException {
-        MyChord temp=new MyChord(this.notes[0] + b.notes[0],this.notes[1] + b.notes[1],this.notes[2] + b.notes[2]);
+        MyChord temp = new MyChord(this.notes[0] + b.notes[0], this.notes[1] + b.notes[1], this.notes[2] + b.notes[2]);
         return temp;
     }
 
     MyChord dif(MyChord b) throws CloneNotSupportedException {
-        MyChord temp=new MyChord(this.notes[0] - b.notes[0],this.notes[1] - b.notes[1],this.notes[2] - b.notes[2]);
+        MyChord temp = new MyChord(this.notes[0] - b.notes[0], this.notes[1] - b.notes[1], this.notes[2] - b.notes[2]);
         return temp;
     }
 
     MyChord mul(double d) throws CloneNotSupportedException {
-        MyChord temp=new MyChord((int) (this.notes[0] * d),(int) (this.notes[1] * d),(int) (this.notes[2] * d));
+        MyChord temp = new MyChord((int) (this.notes[0] * d), (int) (this.notes[1] * d), (int) (this.notes[2] * d));
         return temp;
     }
 
