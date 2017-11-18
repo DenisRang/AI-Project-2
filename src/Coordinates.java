@@ -2,7 +2,7 @@
 public class Coordinates {
     final static int DIMENSION = 6;
     final static int minValues = 48;   //limits of
-    final static int maxValues = 72;   //coordinates
+    final static int maxValues = 96;   //coordinates
     protected MyChord[] coordinates;
 
     public Coordinates() {
