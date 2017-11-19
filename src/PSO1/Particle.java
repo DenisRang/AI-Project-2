@@ -26,7 +26,7 @@ public class Particle {
                 Swarm.globalBestPos = deepClone(currentPos);
             }
         }
-        double inertia = (i * 0.05 < 0.5) ? 0.9 - i * 0.05 : 0.4;
+        double inertia = (i * 0.05 < 0.4) ? 0.9 - i * 0.05 : 0.4;
 
         velocityPart1 = velocity.mul(inertia);
         velocityPart2 = localBestPos.dif(currentPos).mul(Math.random()).mul(Swarm.c1);

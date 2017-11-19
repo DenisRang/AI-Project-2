@@ -1,7 +1,7 @@
 package PSO1;
 
 public class Coordinates {
-    public final static int DIMENSION = 6;
+    public final static int DIMENSION = 5;
     public final static int minValues = 0;   //limits of
     public final static int maxValues = 127;   //coordinates
     public  MyChord[] coordinates;

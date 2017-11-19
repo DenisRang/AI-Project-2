@@ -29,13 +29,13 @@ public class Swarm {
     }
 
     public static int f(Position pos) {
-        if (pos == null) return 1000;
+        if (pos == null) return 10000;
         //Notes: C, D, E, F, G, A, B
         int[] values = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    //in the end of end we will get fitness values of chord's starting note
         int[] amountsN = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    //amount of such chords which starts with that note
         int[] amountsC = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    //amount of such chords which starts with that note
         int[] chords = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    //fitness values of note if it would be starting note of tonic chord
-        int i, min = 500, f;
+        int i, min = 5000, f;
         for (MyChord myChord : pos.getCoordinates()) {
             f = fitnessFunctForChord(myChord);
             i = index(rightNote);

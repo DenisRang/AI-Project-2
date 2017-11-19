@@ -39,7 +39,7 @@ public class Swarm {
         int[] coordinates = pos.getCoordinates().clone();   //coordinates of 'pos' position     [0..31]
         int[] perfectNotes = pos.getCoordinates().clone();     //coordinates of suitable 'pos' position     [0..31]
 
-        //process even notes
+        //processing even notes
         if (perfectNotes[0] < startNotes[0]) perfectNotes[0] = startNotes[0];
         if (perfectNotes[0] > 96) perfectNotes[0] = 96;
         a = -1;
@@ -64,7 +64,7 @@ public class Swarm {
 
         }
 
-        //process odd notes
+        //processing odd notes
         for (int i = 0; i < (Coordinates.DIMENSION / 2) - 1; i++) {
             max = (perfectNotes[i * 2] > perfectNotes[i * 2 + 2]) ? perfectNotes[i * 2] : perfectNotes[i * 2 + 2];
             min = (perfectNotes[i * 2] < perfectNotes[i * 2 + 2]) ? perfectNotes[i * 2] : perfectNotes[i * 2 + 2];

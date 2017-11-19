@@ -1,5 +1,4 @@
-import PSO1.Coordinates;
-import PSO1.Swarm;
+
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.theory.Chord;
@@ -14,6 +13,11 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
         PSO1.Swarm swarm1 = new PSO1.Swarm(100000);
         int i = 0;
+        System.out.println("-------------------------------------------------");
+        System.out.println("-------------------------------------------------");
+        System.out.println("Generation sequence of chords");
+        System.out.println("-------------------------------------------------");
+        System.out.println("-------------------------------------------------\n");
         while (PSO1.Swarm.f(PSO1.Swarm.globalBestPos) != 0) {
             swarm1.nextIteration(++i);
             System.out.println("Iteration number: " + i);
@@ -23,17 +27,20 @@ public class Main {
         }
         int[][] chords = new int[16][3];
         for (i = 0; i < 16; i++) {
-            chords[i] = PSO1.Swarm.globalBestPos.getCoordinates()[i % Coordinates.DIMENSION].getNotes();
+            chords[i] = PSO1.Swarm.globalBestPos.getCoordinates()[i % PSO1.Coordinates.DIMENSION].getNotes();
         }
 
+        System.out.println("\n-------------------------------------------------");
         System.out.println("-------------------------------------------------");
+        System.out.println("Generation melody for chords");
         System.out.println("-------------------------------------------------");
+        System.out.println("-------------------------------------------------\n");
         PSO2.Swarm swarm2 = new PSO2.Swarm(100000, chords);
         i = 0;
         while (PSO2.Swarm.f(PSO2.Swarm.globalBestPos) != 0) {
             swarm2.nextIteration(++i);
             System.out.println("Iteration number: " + i);
-            System.out.println("Global best sequence of chords: " + PSO2.Swarm.globalBestPos);
+            System.out.println("Global best sequence of notes: " + PSO2.Swarm.globalBestPos);
             System.out.println("Fitness function of the global best: " + PSO2.Swarm.f(PSO2.Swarm.globalBestPos));
             System.out.println("____________________________________________________");
         }
@@ -47,8 +54,8 @@ public class Main {
 
     private static void createMidiFile(String musicString, int tempo) // throws IOException, InvalidMidiDataException
     {
-        String midiFileNameBeginning = "Result ";
-        String midiFileNameEnd = ".mid";
+        String midiFileNameBeginning = "DenisRangulov";
+        String midiFileNameEnd = ".midi";
         Pattern pattern = new Pattern(musicString).setVoice(0).setInstrument("PIANO").setTempo(tempo);
         try {
             MidiFileManager.savePatternToMidi(pattern, new File(midiFileNameBeginning + midiFileNameEnd));
