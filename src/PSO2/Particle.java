@@ -1,3 +1,4 @@
+package PSO2;
 
 public class Particle {
     Position currentPos;
@@ -10,7 +11,7 @@ public class Particle {
         velocity = new Velocity();
     }
 
-    void nextIteration(int i) throws CloneNotSupportedException {
+    void nextIteration(int i) {
         Coordinates velocityPart1, velocityPart2, velocityPart3;
         f = Swarm.f(currentPos);
         int fl = Swarm.f(localBestPos);
@@ -39,14 +40,10 @@ public class Particle {
     public Position deepClone(Position object) {
         Position clone = new Position();
         for (int i = 0; i < Coordinates.DIMENSION; i++) {
-            for (int j = 0; j < 3; j++) {
-                clone.getCoordinates()[i].setNote(j, object.getCoordinates()[i].getNote(j));
-            }
+                clone.getCoordinates()[i]= object.getCoordinates()[i];
         }
         return clone;
     }
-
-
 }
 
 
